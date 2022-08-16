@@ -24,7 +24,7 @@
 <meta property="og:description" content="指针 定义 指针变量一种变量，占用存储空间，使用&amp;获取它的地址。   作用 通过传递一级指针，可以在函数内部修改实参指针指向的内容   指针参数的妙用对于标量参数，其实比较简单，相当于一个计算器，输入值，得到结果，而指针参数的框架，虽然我们传入的是一个“地址”值，但是只要有这一个地址值，^^理论上我们可以对这个地址值 上下 n个地址的内存进行操作^^，这就意味着： （1）我们可以通过指针">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-04-09T13:06:39.000Z">
-<meta property="article:modified_time" content="2022-04-09T13:07:42.469Z">
+<meta property="article:modified_time" content="2022-08-16T06:25:52.890Z">
 <meta property="article:author" content="XXXL">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -200,7 +200,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      3k 字
+      2.9k 字
     </span>
   
 
@@ -262,8 +262,37 @@
 <li><h2 id="二级指针"><a href="#二级指针" class="headerlink" title="二级指针"></a><strong>二级指针</strong></h2><ul>
 <li>作用<ul>
 <li>^^在函数传递参数的时候，通过指针给主调函数中的变量间接复制，是指针存在最大的意义^^。<ul>
-<li>例如^^在被调函数中改变主调函数中变量的值^^，可以在函数调用的时候将变量的地址传递过去<h2 id="在被调函数中使用一级指针来接受，在被调函数中可以通过指针来间接改变变量的值"><a href="#在被调函数中使用一级指针来接受，在被调函数中可以通过指针来间接改变变量的值" class="headerlink" title="在被调函数中使用一级指针来接受，在被调函数中可以通过指针来间接改变变量的值"></a>在被调函数中使用一级指针来接受，在被调函数中可以通过指针来间接改变变量的值</h2><pre><code><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-keyword">void</span>)</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-keyword">int</span> a = <span class="hljs-number">10</span>;<br>	<span class="hljs-keyword">int</span>* p = &amp;a;<br>	<span class="hljs-keyword">int</span>** q = &amp;p;<br>  <br>	<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;a   = %d\n&quot;</span>, a);<br>	<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;&amp;a  = %p\n&quot;</span>, &amp;a);<br>	<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;p   = %p\n&quot;</span>, p);<br>	<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;&amp;p  = %p\n&quot;</span>, &amp;p);<br>	<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;*p  = %d\n&quot;</span>, *p);<br>	<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;q   = %p\n&quot;</span>, q);<br>	<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;&amp;q  = %p\n&quot;</span>, &amp;q);<br>	<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;*q  = %p\n&quot;</span>, *q);<br>	<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;**q = %d\n&quot;</span>, **q);<br>  	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
-<figure class="highlight c"><figcaption><span>结果</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs c">a   = <span class="hljs-number">10</span><br>&amp;a  = <span class="hljs-number">0000004B</span>0039F854<br>p   = <span class="hljs-number">0000004B</span>0039F854<br>&amp;p  = <span class="hljs-number">0000004B</span>0039F878<br>*p  = <span class="hljs-number">10</span><br>q   = <span class="hljs-number">0000004B</span>0039F878<br>&amp;q  = <span class="hljs-number">0000004B</span>0039F898<br>*q  = <span class="hljs-number">0000004B</span>0039F854<br>**q = <span class="hljs-number">10</span><br></code></pre></td></tr></table></figure>
+<li>例如^^在被调函数中改变主调函数中变量的值^^，可以在函数调用的时候将变量的地址传递过去<h2 id="在被调函数中使用一级指针来接受，在被调函数中可以通过指针来间接改变变量的值"><a href="#在被调函数中使用一级指针来接受，在被调函数中可以通过指针来间接改变变量的值" class="headerlink" title="在被调函数中使用一级指针来接受，在被调函数中可以通过指针来间接改变变量的值"></a>在被调函数中使用一级指针来接受，在被调函数中可以通过指针来间接改变变量的值</h2><pre><code>`` 
+                  #include &lt;stdio.h&gt;
+                  int main(void)
+                  &#123;
+                      int a = 10;
+                      int* p = &amp;a;
+                      int** q = &amp;p;
+                    
+                      printf(&quot;a   = %d\n&quot;, a);
+                      printf(&quot;&amp;a  = %p\n&quot;, &amp;a);
+                      printf(&quot;p   = %p\n&quot;, p);
+                      printf(&quot;&amp;p  = %p\n&quot;, &amp;p);
+                      printf(&quot;*p  = %d\n&quot;, *p);
+                      printf(&quot;q   = %p\n&quot;, q);
+                      printf(&quot;&amp;q  = %p\n&quot;, &amp;q);
+                      printf(&quot;*q  = %p\n&quot;, *q);
+                      printf(&quot;**q = %d\n&quot;, **q);
+                        return 0;
+                  &#125;
+``
+`` 
+                  a   = 10
+                  &amp;a  = 0000004B0039F854
+                  p   = 0000004B0039F854
+                  &amp;p  = 0000004B0039F878
+                  *p  = 10
+                  q   = 0000004B0039F878
+                  &amp;q  = 0000004B0039F898
+                  *q  = 0000004B0039F854
+                  **q = 10
+``
 </code></pre>
 </li>
 <li>同理，^^在被调函数中要改变主调函数中一级指针的值^^，可以在被调函数中通过二级指针接受一级指针的地址，从而实现在被调函数中改变一级指针的值。</li>
@@ -326,6 +355,12 @@
                 <div class="post-prevnext">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2022/08/16/sqlite-%E5%B9%B6%E5%8F%91%E6%93%8D%E4%BD%9C/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">sqlite 并发操作</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
